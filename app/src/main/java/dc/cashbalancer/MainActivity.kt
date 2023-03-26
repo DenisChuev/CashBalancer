@@ -2,13 +2,9 @@ package dc.cashbalancer
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import dc.cashbalancer.databinding.ActivityMainBinding
+import dc.cashbalancer.view.cards.CardsFragment
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
@@ -19,10 +15,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        replaceFragment(MainFragment())
+        replaceFragment(CardsFragment())
         binding.navigation.setOnItemSelectedListener {
             if (it.itemId == R.id.home_tab) {
-                replaceFragment(MainFragment())
+                replaceFragment(CardsFragment())
             } else if (it.itemId == R.id.profile_tab) {
                 replaceFragment(ProfileFragment())
             }

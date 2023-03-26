@@ -1,4 +1,4 @@
-package dc.cashbalancer
+package dc.cashbalancer.view.cards
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import dc.cashbalancer.R
 
 class CardListAdapter(private val cardsList: ArrayList<Card>) :
     RecyclerView.Adapter<CardListAdapter.CardItemViewHolder>() {

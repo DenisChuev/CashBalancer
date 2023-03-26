@@ -2,5 +2,9 @@
     <string name="app_name">Cash Balancer</string>
     <string name="main_title">Main</string>
     <string name="profile_title">Profile</string>
-    <string name="add_card">Add card</string>
+    <string name="add_card">Добавить карту</string>
+    <string name="new_account">Новый счёт</string>
+    <string name="input_card_name">Введите название</string>
+    <string name="input_card_amount">Введите баланс</string>
+    <string name="create_card_account">Создать</string>
 </resources>
