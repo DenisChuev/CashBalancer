@@ -2,4 +2,5 @@
     <string name="app_name">Cash Balancer</string>
     <string name="main_title">Main</string>
     <string name="profile_title">Profile</string>
+    <string name="add_card">Add card</string>
 </resources>
