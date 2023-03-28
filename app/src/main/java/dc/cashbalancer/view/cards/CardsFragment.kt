@@ -4,15 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.mrudultora.colorpicker.ColorPickerDialog
-import com.mrudultora.colorpicker.listeners.OnSelectColorListener
-import com.mrudultora.colorpicker.util.ColorItemShape
 import dc.cashbalancer.R
-import kotlinx.android.synthetic.main.fragment_add_card.*
 import kotlinx.android.synthetic.main.fragment_card.*
 
 class CardsFragment : Fragment() {
@@ -31,22 +25,11 @@ class CardsFragment : Fragment() {
             adapter = CardListAdapter(cards)
         }
         add_card_btn.setOnClickListener {
-            val colorPickerDialog = ColorPickerDialog(requireContext())
-
-            colorPickerDialog.setColors()
-                .setColumns(4)
-                .setDefaultSelectedColor(R.color.default_card)
-                .setColorItemShape(ColorItemShape.CIRCLE)
-                .setOnSelectColorListener(object : OnSelectColorListener {
-                    override fun onColorSelected(color: Int, position: Int) {
-                        // handle color or position
-                    }
-
-                    override fun cancel() {
-                        colorPickerDialog.dismissDialog() // Dismiss the dialog.
-                    }
-                })
-                .show()
+            val addCardFragment = AddCardFragment()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.card_fragment_layout, addCardFragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 }

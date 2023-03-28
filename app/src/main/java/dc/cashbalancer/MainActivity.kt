@@ -28,6 +28,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun replaceFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frame_layout, fragment).commit()
+        transaction.replace(R.id.card_fragment_layout, fragment).commit()
     }
 }

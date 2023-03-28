@@ -27,15 +27,16 @@ class AddCardFragment : BottomSheetDialogFragment() {
 
             colorPickerDialog.setColors()
                 .setColumns(4)
-                .setDefaultSelectedColor(R.color.default_card)
+                .setDefaultSelectedColor(R.color.default_card_color)
                 .setColorItemShape(ColorItemShape.CIRCLE)
                 .setOnSelectColorListener(object : OnSelectColorListener {
                     override fun onColorSelected(color: Int, position: Int) {
-                        // handle color or position
+                        card.setCardBackgroundColor(color)
+                        color_picker.setBackgroundColor(color)
                     }
 
                     override fun cancel() {
-                        colorPickerDialog.dismissDialog() // Dismiss the dialog.
+                        colorPickerDialog.dismissDialog()
                     }
                 })
                 .show()

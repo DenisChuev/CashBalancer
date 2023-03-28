@@ -7,4 +7,6 @@
     <string name="input_card_name">Введите название</string>
     <string name="input_card_amount">Введите баланс</string>
     <string name="create_card_account">Создать</string>
+    <string name="card_color">Оформление</string>
+    <string name="select_color">Выбрать цвет</string>
 </resources>
