@@ -2,11 +2,12 @@ package dc.cashbalancer.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import dc.cashbalancer.view.cards.Card
 
 @Dao
 interface CardDao {
     @Query("Select * from cards")
-    fun getAllCards(): LiveData<List<CardEntity>>
+    fun getAllCards(): List<Card>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addCard(card: CardEntity)

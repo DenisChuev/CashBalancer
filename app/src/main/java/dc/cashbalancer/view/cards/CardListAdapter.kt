@@ -8,10 +8,12 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import dc.cashbalancer.R
+import dc.cashbalancer.dao.CardEntity
+import dc.cashbalancer.dao.toModel
 
-class CardListAdapter(private val cardsList: ArrayList<Card>) :
+class CardListAdapter() :
     RecyclerView.Adapter<CardListAdapter.CardItemViewHolder>() {
-
+    private lateinit var cardsList: List<Card>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardItemViewHolder {
         val itemView =
@@ -21,6 +23,11 @@ class CardListAdapter(private val cardsList: ArrayList<Card>) :
 
     override fun getItemCount(): Int {
         return cardsList.size
+    }
+
+    fun updateCards(cards: List<Card>) {
+        cardsList = cards
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: CardItemViewHolder, position: Int) {

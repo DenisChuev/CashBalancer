@@ -5,31 +5,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dc.cashbalancer.R
-import kotlinx.android.synthetic.main.fragment_card.*
+import dc.cashbalancer.databinding.FragmentCardBinding
 
 class CardsFragment : Fragment() {
-    val cards: ArrayList<Card> = arrayListOf(Card("test1", 1000.0), Card("test2", 50000.0))
+    private lateinit var binding: FragmentCardBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_card, container, false)
+    ): View {
+        binding = FragmentCardBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cards_list.apply {
+        val vm = ViewModelProvider(requireActivity())[CardsViewModel::class.java]
+
+        binding.cardsList.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = CardListAdapter(cards)
+            adapter = CardListAdapter()
         }
-        add_card_btn.setOnClickListener {
+        binding.addCardBtn.setOnClickListener {
             val addCardFragment = AddCardFragment()
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.card_fragment_layout, addCardFragment)
                 .addToBackStack(null)
                 .commit()
         }
+
+        vm.cardList.observe(
+            requireActivity()
+        ) { cards -> (binding.cardsList.adapter as CardListAdapter).updateCards(cards) }
     }
 }
