@@ -9,4 +9,7 @@
     <string name="create_card_account">Создать</string>
     <string name="card_color">Оформление</string>
     <string name="select_color">Выбрать цвет</string>
+    <string name="main_tab">Главная</string>
+    <string name="history_tab">История операций</string>
+    <string name="profile_tab">Профиль</string>
 </resources>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import dc.cashbalancer.databinding.ActivityMainBinding
 import dc.cashbalancer.view.cards.CardsFragment
+import dc.cashbalancer.view.history.HistoryFragment
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
@@ -19,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         binding.navigation.setOnItemSelectedListener {
             if (it.itemId == R.id.home_tab) {
                 replaceFragment(CardsFragment())
+            } else if (it.itemId == R.id.history_tab) {
+                replaceFragment(HistoryFragment())
             } else if (it.itemId == R.id.profile_tab) {
                 replaceFragment(ProfileFragment())
             }
