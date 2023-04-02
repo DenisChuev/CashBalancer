@@ -1,8 +1,6 @@
 package dc.cashbalancer.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
-import dc.cashbalancer.view.cards.Card
 
 @Dao
 interface CardDao {
@@ -17,4 +15,7 @@ interface CardDao {
 
     @Delete
     fun deleteCard(card: CardEntity)
+
+    @Query("update cards set amount = :cardAmount where id = :cardId")
+    fun updateAmount(cardAmount: Double, cardId: Int)
 }

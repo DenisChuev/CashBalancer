@@ -2,6 +2,8 @@ package dc.cashbalancer.dao
 
 import dc.cashbalancer.CashApp
 import dc.cashbalancer.view.cards.Card
+import dc.cashbalancer.view.history.Operation
+import dc.cashbalancer.view.history.OperationType
 
 class CardsRepository {
     private val db by lazy { CashApp.db }
@@ -23,7 +25,18 @@ class CardsRepository {
     fun getAllCards(): List<CardEntity> {
         return cardDao.getAllCards()
     }
+
+    fun addOperation(operation: Operation, card: CardEntity) {
+        operationDao.addOperation(operation.toEntity())
+        when (operation.type) {
+            OperationType.WITHDRAWAL -> card.amount -= operation.sum
+            OperationType.REPLENISHMENT -> card.amount += operation.sum
+        }
+        cardDao.updateAmount(card.amount, card.id)
+    }
 }
+
+public fun Operation.toEntity(): OperationEntity = OperationEntity(cardID, type, category, sum)
 
 public fun Card.toEntity(): CardEntity = CardEntity(name, amount, color)
 

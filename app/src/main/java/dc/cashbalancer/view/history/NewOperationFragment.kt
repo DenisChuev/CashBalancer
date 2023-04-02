@@ -9,12 +9,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dc.cashbalancer.R
+import dc.cashbalancer.dao.CardEntity
 import dc.cashbalancer.databinding.FragmentNewOperationBinding
 import kotlinx.coroutines.launch
 
 class NewOperationFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentNewOperationBinding
     private lateinit var historyVM: HistoryViewModel
+
+    private lateinit var selectedCard: CardEntity
+    private lateinit var selectedCategory: String
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
@@ -53,6 +57,7 @@ class NewOperationFragment : BottomSheetDialogFragment() {
                             position: Int,
                             id: Long
                         ) {
+                            selectedCard = it[position]
                         }
 
                         override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -70,10 +75,24 @@ class NewOperationFragment : BottomSheetDialogFragment() {
                     position: Int,
                     id: Long
                 ) {
+                    selectedCategory = historyVM.categories[position]
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                 }
             }
+
+        binding.saveOperationBtn.setOnClickListener {
+            // TODO валидация ввода
+            historyVM.addOperation(
+                Operation(
+                    selectedCard.id,
+                    OperationType.WITHDRAWAL,
+                    selectedCategory,
+                    binding.operationSumInput.text.toString().toDouble()
+                ),
+                selectedCard
+            )
+        }
     }
 }

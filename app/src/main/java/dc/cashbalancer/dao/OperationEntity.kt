@@ -3,6 +3,7 @@ package dc.cashbalancer.dao
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import dc.cashbalancer.view.history.OperationType
 
 @Entity(
     tableName = "operations",
@@ -14,6 +15,7 @@ import androidx.room.PrimaryKey
 )
 data class OperationEntity(
     var cardID: Int,
+    var type: OperationType = OperationType.WITHDRAWAL,
     var category: String,
     var sum: Double,
 ) {
