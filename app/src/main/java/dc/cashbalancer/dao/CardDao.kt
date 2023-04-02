@@ -7,7 +7,7 @@ import dc.cashbalancer.view.cards.Card
 @Dao
 interface CardDao {
     @Query("Select * from cards")
-    fun getAllCards(): List<Card>
+    fun getAllCards(): List<CardEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addCard(card: CardEntity)

@@ -6,6 +6,7 @@ import dc.cashbalancer.view.cards.Card
 class CardsRepository {
     private val db by lazy { CashApp.db }
     private val cardDao = db.getCardDao()
+    private val operationDao = db.getOperationDao()
 
     fun addCard(card: Card) {
         cardDao.addCard(card.toEntity())
@@ -19,7 +20,7 @@ class CardsRepository {
         cardDao.deleteCard(card.toEntity())
     }
 
-    fun getAllCards(): List<Card> {
+    fun getAllCards(): List<CardEntity> {
         return cardDao.getAllCards()
     }
 }

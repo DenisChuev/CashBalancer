@@ -13,7 +13,7 @@ import dc.cashbalancer.dao.toModel
 
 class CardListAdapter() :
     RecyclerView.Adapter<CardListAdapter.CardItemViewHolder>() {
-    private lateinit var cardsList: List<Card>
+    private lateinit var cardsList: List<CardEntity>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardItemViewHolder {
         val itemView =
@@ -25,7 +25,7 @@ class CardListAdapter() :
         return cardsList.size
     }
 
-    fun updateCards(cards: List<Card>) {
+    fun updateCards(cards: List<CardEntity>) {
         cardsList = cards
         notifyDataSetChanged()
     }
@@ -38,7 +38,7 @@ class CardListAdapter() :
         private val cardName: TextView = view.findViewById(R.id.card_name)
         private val cardAmount: TextView = view.findViewById(R.id.card_amount)
 
-        fun bind(card: Card) {
+        fun bind(card: CardEntity) {
             cardName.text = card.name
             cardAmount.text = card.amount.toString()
             (view as CardView).setCardBackgroundColor(Color.parseColor(card.color))

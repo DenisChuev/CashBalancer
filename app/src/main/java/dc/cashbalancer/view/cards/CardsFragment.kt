@@ -31,10 +31,7 @@ class CardsFragment : Fragment() {
         }
         binding.addCardBtn.setOnClickListener {
             val addCardFragment = AddCardFragment()
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.card_fragment_layout, addCardFragment)
-                .addToBackStack(null)
-                .commit()
+            addCardFragment.show(parentFragmentManager, "AddCardFragment")
         }
 
         vm.cardList.observe(

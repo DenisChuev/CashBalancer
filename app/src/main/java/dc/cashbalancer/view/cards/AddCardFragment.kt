@@ -28,14 +28,18 @@ class AddCardFragment : BottomSheetDialogFragment() {
         val vm = ViewModelProvider(requireActivity())[CardsViewModel::class.java]
 
         binding.cardSaveBtn.setOnClickListener {
+            // TODO валидация данных
+
             vm.addCard(
                 Card(
                     binding.cardNameInput.text.toString(),
                     binding.cardAmountInput.text.toString().toDouble()
                 )
             )
+            dismiss()
         }
 
+        binding.colorPicker.setBackgroundColor(resources.getColor(R.color.default_card_color))
         binding.colorPicker.setOnClickListener {
             val colorPickerDialog = ColorPickerDialog(context)
 
