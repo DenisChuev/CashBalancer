@@ -1,6 +1,5 @@
 package dc.cashbalancer.dao
 
-import androidx.annotation.WorkerThread
 import dc.cashbalancer.CashApp
 import dc.cashbalancer.view.cards.Card
 
@@ -25,6 +24,6 @@ class CardsRepository {
     }
 }
 
-private fun Card.toEntity(): CardEntity = CardEntity(name, amount, color)
+public fun Card.toEntity(): CardEntity = CardEntity(name, amount, color)
 
 public fun CardEntity.toModel(): Card = Card(name, amount, color)

@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import dc.cashbalancer.databinding.FragmentCardBinding
 import dc.cashbalancer.databinding.FragmentHistoryBinding
 
-class HistoryFragment: Fragment() {
+class HistoryFragment : Fragment() {
     private lateinit var binding: FragmentHistoryBinding
 
     override fun onCreateView(
@@ -21,5 +21,8 @@ class HistoryFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.addOperationBtn.setOnClickListener {
+            NewOperationFragment().show(parentFragmentManager, "NewOperationFragment")
+        }
     }
 }

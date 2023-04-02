@@ -1,18 +1,31 @@
-package dc.cashbalancer.view.cards
+package dc.cashbalancer.view.history
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dc.cashbalancer.dao.CardsRepository
+import dc.cashbalancer.view.cards.Card
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CardsViewModel : ViewModel() {
+class HistoryViewModel : ViewModel() {
     private val repo = CardsRepository()
     private val data: MutableLiveData<List<Card>> = MutableLiveData(emptyList())
     val cardList: LiveData<List<Card>>
         get() = data
+
+    val categories: ArrayList<String> = arrayListOf(
+        "Продукты",
+        "Кафе",
+        "Транспорт",
+        "Покупки",
+        "Дом",
+        "Развлечения",
+        "Сервис",
+        "Подарки",
+        "Здоровье"
+    )
 
     init {
         loadCards()
@@ -21,25 +34,6 @@ class CardsViewModel : ViewModel() {
     fun loadCards() {
         viewModelScope.launch(Dispatchers.IO) {
             data.postValue(repo.getAllCards())
-        }
-    }
-
-    fun addCard(card: Card) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repo.addCard(card)
-            loadCards()
-        }
-    }
-
-    fun updateCard(card: Card) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repo.updateCard(card)
-        }
-    }
-
-    fun deleteCard(card: Card) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repo.deleteCard(card)
         }
     }
 }

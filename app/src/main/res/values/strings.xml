@@ -12,4 +12,5 @@
     <string name="main_tab">Главная</string>
     <string name="history_tab">История операций</string>
     <string name="profile_tab">Профиль</string>
+    <string name="add_operation">Добавить операцию</string>
 </resources>
