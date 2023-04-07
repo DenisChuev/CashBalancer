@@ -36,7 +36,8 @@ class CardsRepository {
     }
 }
 
-public fun Operation.toEntity(): OperationEntity = OperationEntity(cardID, type, category, sum)
+public fun Operation.toEntity(): OperationEntity =
+    OperationEntity(cardID, type, category, sum, date)
 
 public fun Card.toEntity(): CardEntity = CardEntity(name, amount, color)
 

@@ -34,7 +34,7 @@ class CardListAdapter() :
         holder.bind(cardsList[position])
     }
 
-    class CardItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    inner class CardItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         private val cardName: TextView = view.findViewById(R.id.card_name)
         private val cardAmount: TextView = view.findViewById(R.id.card_amount)
 
