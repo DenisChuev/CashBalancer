@@ -5,7 +5,7 @@ import dc.cashbalancer.view.cards.Card
 import dc.cashbalancer.view.history.Operation
 import dc.cashbalancer.view.history.OperationType
 
-class CardsRepository {
+class CashRepository {
     private val db by lazy { CashApp.db }
     private val cardDao = db.getCardDao()
     private val operationDao = db.getOperationDao()
@@ -24,6 +24,14 @@ class CardsRepository {
 
     fun getAllCards(): List<CardEntity> {
         return cardDao.getAllCards()
+    }
+
+    fun getCardName(cardId: Int): String {
+        return cardDao.getName(cardId)
+    }
+
+    fun getOperations(): List<OperationEntity> {
+        return operationDao.getAllOperations()
     }
 
     fun addOperation(operation: Operation, card: CardEntity) {

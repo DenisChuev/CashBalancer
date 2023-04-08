@@ -12,6 +12,8 @@ import dc.cashbalancer.R
 import dc.cashbalancer.dao.CardEntity
 import dc.cashbalancer.databinding.FragmentNewOperationBinding
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 class NewOperationFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentNewOperationBinding
@@ -89,7 +91,8 @@ class NewOperationFragment : BottomSheetDialogFragment() {
                     selectedCard.id,
                     OperationType.WITHDRAWAL,
                     selectedCategory,
-                    binding.operationSumInput.text.toString().toDouble()
+                    binding.operationSumInput.text.toString().toDouble(),
+                    Calendar.getInstance().time
                 ),
                 selectedCard
             )

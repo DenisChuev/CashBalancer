@@ -20,7 +20,7 @@ data class OperationEntity(
     var type: OperationType = OperationType.WITHDRAWAL,
     var category: String,
     var sum: Double,
-    @TypeConverters(TimestampConverter::class)
+    @TypeConverters(Converters::class)
     var date: Date
 ) {
     @PrimaryKey(autoGenerate = true)

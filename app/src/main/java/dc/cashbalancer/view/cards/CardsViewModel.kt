@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dc.cashbalancer.dao.CardEntity
-import dc.cashbalancer.dao.CardsRepository
+import dc.cashbalancer.dao.CashRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CardsViewModel : ViewModel() {
-    private val repo = CardsRepository()
+    private val repo = CashRepository()
     private val data: MutableLiveData<List<CardEntity>> = MutableLiveData(emptyList())
     val cardList: LiveData<List<CardEntity>>
         get() = data

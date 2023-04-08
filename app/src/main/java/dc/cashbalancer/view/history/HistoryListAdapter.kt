@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dc.cashbalancer.R
 import dc.cashbalancer.dao.OperationEntity
@@ -30,14 +32,16 @@ class HistoryListAdapter() : RecyclerView.Adapter<HistoryListAdapter.HistoryView
         return HistoryViewHolder(itemView)
     }
 
-    override fun getItemCount(): Int = historyOperations.size
+    override fun getItemCount(): Int {
+        return historyOperations.size
+    }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        val operationDay = historyOperations.get(position).date
+        val operationDay = historyOperations[position].date
         var operationsSum: Double = 0.0
         val operationsPerDay: ArrayList<OperationEntity> = ArrayList()
         historyOperations.forEach {
-            if (df.format(it).equals(df.format(operationDay))) {
+            if (df.format(it.date).equals(df.format(operationDay))) {
                 if (it.type == OperationType.WITHDRAWAL) {
                     operationsSum -= it.sum
                 }
@@ -52,11 +56,53 @@ class HistoryListAdapter() : RecyclerView.Adapter<HistoryListAdapter.HistoryView
     inner class HistoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val operationDay = view.findViewById<TextView>(R.id.operation_day)
         private val operationSummary = view.findViewById<TextView>(R.id.operation_summary)
+        private val operationsList = view.findViewById<RecyclerView>(R.id.operations_list)
 
         @SuppressLint("SetTextI18n")
         fun bind(historyDay: Date, operationsSum: Double, operations: List<OperationEntity>) {
             operationDay.text = df.format(historyDay)
             operationSummary.text = "$operationsSum руб"
+            operationsList.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = OperationsAdapter(operations)
+            }
         }
+    }
+
+    inner class OperationsAdapter(private val operations: List<OperationEntity>) :
+        RecyclerView.Adapter<OperationsAdapter.OperationViewHolder>() {
+
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): OperationsAdapter.OperationViewHolder {
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.item_operations, parent, false)
+            return OperationViewHolder(view)
+        }
+
+        override fun onBindViewHolder(
+            holder: OperationsAdapter.OperationViewHolder,
+            position: Int
+        ) {
+            var operation = operations[position]
+            holder.bind(operation)
+
+        }
+
+        override fun getItemCount(): Int = operations.size
+
+        inner class OperationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            private val operationInfo = view.findViewById<TextView>(R.id.operation_info)
+            private val operationSum = view.findViewById<TextView>(R.id.operation_sum)
+
+            @SuppressLint("SetTextI18n")
+            fun bind(operation: OperationEntity) {
+                operationInfo.text = "${operation.cardID} -> ${operation.category}"
+                operationSum.text = "${operation.sum} руб"
+            }
+
+        }
+
     }
 }
