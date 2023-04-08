@@ -1,5 +1,6 @@
 package dc.cashbalancer.view.history
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +9,11 @@ import android.widget.AdapterView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import dc.cashbalancer.R
 import dc.cashbalancer.dao.CardEntity
 import dc.cashbalancer.databinding.FragmentNewOperationBinding
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class NewOperationFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentNewOperationBinding
@@ -21,6 +21,8 @@ class NewOperationFragment : BottomSheetDialogFragment() {
 
     private lateinit var selectedCard: CardEntity
     private lateinit var selectedCategory: String
+    @SuppressLint("SimpleDateFormat")
+    private val df = SimpleDateFormat("yyyy-MM-dd HH:mm")
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
@@ -41,6 +43,8 @@ class NewOperationFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         historyVM = ViewModelProvider(requireActivity())[HistoryViewModel::class.java]
         historyVM.loadCards()
+
+        binding.operationDate.setText(df.format(Date()))
 
         lifecycleScope.launch {
             historyVM.loadCards()
@@ -92,11 +96,13 @@ class NewOperationFragment : BottomSheetDialogFragment() {
                     OperationType.WITHDRAWAL,
                     selectedCategory,
                     binding.operationSumInput.text.toString().toDouble(),
-                    Calendar.getInstance().time
+                    df.parse(binding.operationDate.text.toString())
                 ),
                 selectedCard
             )
             dismiss()
         }
     }
+
+
 }

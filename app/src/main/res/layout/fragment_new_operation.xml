@@ -74,6 +74,17 @@
         android:textAlignment="textEnd"
         app:layout_constraintTop_toBottomOf="@+id/sum_title" />
 
+    <EditText
+        android:id="@+id/operation_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:inputType="datetime"
+        android:hint="Выберите дату"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/operation_sum_input" />
+
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/save_operation_btn"
         android:layout_width="match_parent"
@@ -81,6 +92,6 @@
         android:layout_marginTop="16dp"
         android:padding="16dp"
         android:text="Сохранить"
-        app:layout_constraintTop_toBottomOf="@+id/operation_sum_input" />
+        app:layout_constraintTop_toBottomOf="@+id/operation_date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

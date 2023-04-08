@@ -1,8 +1,6 @@
 package dc.cashbalancer.view.history
 
 import android.annotation.SuppressLint
-import android.icu.text.DateFormat
-import android.icu.text.DateFormat.getDateInstance
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dc.cashbalancer.R
 import dc.cashbalancer.dao.OperationEntity
+import java.text.SimpleDateFormat
 import java.util.*
 
 class HistoryListAdapter() : RecyclerView.Adapter<HistoryListAdapter.HistoryViewHolder>() {
     private var historyOperations = ArrayList<HistoryItem>()
-    var df: DateFormat = getDateInstance()
+
+    @SuppressLint("SimpleDateFormat")
+    var df: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
 
 
     fun updateAdapter(operations: List<OperationEntity>) {
@@ -32,8 +33,17 @@ class HistoryListAdapter() : RecyclerView.Adapter<HistoryListAdapter.HistoryView
 
         historyOperations.clear()
         operationsByDay.forEach {
-            historyOperations.add(HistoryItem(it.key, it.value.sumOf { it -> it.sum }, it.value))
+            historyOperations.add(
+                HistoryItem(
+                    it.key,
+                    it.value.filter { it.type == OperationType.WITHDRAWAL }.sumOf { it.sum },
+                    it.value
+                )
+            )
         }
+
+        historyOperations.sortByDescending { it.operationDate }
+
 
         notifyDataSetChanged()
     }
@@ -61,7 +71,7 @@ class HistoryListAdapter() : RecyclerView.Adapter<HistoryListAdapter.HistoryView
         @SuppressLint("SetTextI18n")
         fun bind(day: String, operationsSum: Double, operations: List<OperationEntity>) {
             operationDay.text = day
-            operationSummary.text = "$operationsSum руб"
+            operationSummary.text = "-$operationsSum руб"
             operationsList.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = OperationsAdapter(operations)
@@ -85,7 +95,7 @@ class HistoryListAdapter() : RecyclerView.Adapter<HistoryListAdapter.HistoryView
             holder: OperationsAdapter.OperationViewHolder,
             position: Int
         ) {
-            var operation = operations[position]
+            val operation = operations[position]
             holder.bind(operation)
 
         }
@@ -99,7 +109,7 @@ class HistoryListAdapter() : RecyclerView.Adapter<HistoryListAdapter.HistoryView
             @SuppressLint("SetTextI18n")
             fun bind(operation: OperationEntity) {
                 operationInfo.text = "${operation.cardID} -> ${operation.category}"
-                operationSum.text = "${operation.sum} руб"
+                operationSum.text = "-${operation.sum} руб"
             }
 
         }
