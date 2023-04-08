@@ -7,22 +7,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dc.cashbalancer.R
 import dc.cashbalancer.dao.OperationEntity
-import java.time.ZoneId
 import java.util.*
-import kotlin.collections.ArrayList
 
 class HistoryListAdapter() : RecyclerView.Adapter<HistoryListAdapter.HistoryViewHolder>() {
-    private lateinit var historyOperations: List<OperationEntity>
+    private var historyOperations = ArrayList<HistoryItem>()
     var df: DateFormat = getDateInstance()
 
 
     fun updateAdapter(operations: List<OperationEntity>) {
-        historyOperations = operations
+        val operationsByDay = HashMap<String, ArrayList<OperationEntity>>()
+        operations.forEach {
+            val day = df.format(it.date)
+            if (operationsByDay.containsKey(day)) {
+                operationsByDay[day]!!.add(it)
+            } else {
+                operationsByDay[day] = ArrayList()
+                operationsByDay[day]!!.add(it)
+            }
+        }
+
+        historyOperations.clear()
+        operationsByDay.forEach {
+            historyOperations.add(HistoryItem(it.key, it.value.sumOf { it -> it.sum }, it.value))
+        }
+
         notifyDataSetChanged()
     }
 
@@ -37,20 +49,8 @@ class HistoryListAdapter() : RecyclerView.Adapter<HistoryListAdapter.HistoryView
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        val operationDay = historyOperations[position].date
-        var operationsSum: Double = 0.0
-        val operationsPerDay: ArrayList<OperationEntity> = ArrayList()
-        historyOperations.forEach {
-            if (df.format(it.date).equals(df.format(operationDay))) {
-                if (it.type == OperationType.WITHDRAWAL) {
-                    operationsSum -= it.sum
-                }
-                operationsPerDay.add(it)
-            }
-        }
-
-        holder.bind(operationDay, operationsSum, operationsPerDay)
-
+        val item = historyOperations[position]
+        holder.bind(item.operationDate, item.operationSum, item.operations)
     }
 
     inner class HistoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -59,8 +59,8 @@ class HistoryListAdapter() : RecyclerView.Adapter<HistoryListAdapter.HistoryView
         private val operationsList = view.findViewById<RecyclerView>(R.id.operations_list)
 
         @SuppressLint("SetTextI18n")
-        fun bind(historyDay: Date, operationsSum: Double, operations: List<OperationEntity>) {
-            operationDay.text = df.format(historyDay)
+        fun bind(day: String, operationsSum: Double, operations: List<OperationEntity>) {
+            operationDay.text = day
             operationSummary.text = "$operationsSum руб"
             operationsList.apply {
                 layoutManager = LinearLayoutManager(context)

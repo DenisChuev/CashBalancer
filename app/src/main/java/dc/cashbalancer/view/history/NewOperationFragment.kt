@@ -96,6 +96,7 @@ class NewOperationFragment : BottomSheetDialogFragment() {
                 ),
                 selectedCard
             )
+            dismiss()
         }
     }
 }

@@ -53,6 +53,7 @@ class HistoryViewModel : ViewModel() {
     fun addOperation(operation: Operation, card: CardEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             repo.addOperation(operation, card)
+            loadOperations()
         }
     }
 
