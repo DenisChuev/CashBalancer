@@ -12,7 +12,6 @@ import dc.cashbalancer.databinding.FragmentCardBinding
 class CardsFragment : Fragment() {
     private lateinit var binding: FragmentCardBinding
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
