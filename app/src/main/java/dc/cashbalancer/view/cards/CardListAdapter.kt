@@ -1,5 +1,6 @@
 package dc.cashbalancer.view.cards
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -38,10 +39,11 @@ class CardListAdapter() :
         private val cardName: TextView = view.findViewById(R.id.card_name)
         private val cardAmount: TextView = view.findViewById(R.id.card_amount)
 
+        @SuppressLint("ResourceAsColor")
         fun bind(card: CardEntity) {
             cardName.text = card.name
             cardAmount.text = card.amount.toString()
-            (view as CardView).setCardBackgroundColor(Color.parseColor(card.color))
+            (view as CardView).setCardBackgroundColor(card.color)
         }
 
     }

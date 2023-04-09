@@ -33,7 +33,8 @@ class AddCardFragment : BottomSheetDialogFragment() {
             vm.addCard(
                 Card(
                     binding.cardNameInput.text.toString(),
-                    binding.cardAmountInput.text.toString().toDouble()
+                    binding.cardAmountInput.text.toString().toDouble(),
+                    binding.card.cardBackgroundColor.defaultColor
                 )
             )
             dismiss()
