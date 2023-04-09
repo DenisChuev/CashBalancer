@@ -39,10 +39,10 @@ class CardListAdapter() :
         private val cardName: TextView = view.findViewById(R.id.card_name)
         private val cardAmount: TextView = view.findViewById(R.id.card_amount)
 
-        @SuppressLint("ResourceAsColor")
+        @SuppressLint("ResourceAsColor", "SetTextI18n")
         fun bind(card: CardEntity) {
             cardName.text = card.name
-            cardAmount.text = card.amount.toString()
+            cardAmount.text = "${card.amount} ${card.currency}"
             (view as CardView).setCardBackgroundColor(card.color)
         }
 

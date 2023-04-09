@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import dc.cashbalancer.R
 import dc.cashbalancer.databinding.FragmentCardBinding
 
 class CardsFragment : Fragment() {
