@@ -32,15 +32,17 @@ class CardsViewModel : ViewModel() {
         }
     }
 
-    fun updateCard(card: Card) {
+    fun updateCard(card: CardEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             repo.updateCard(card)
+            loadCards()
         }
     }
 
-    fun deleteCard(card: Card) {
+    fun deleteCard(card: CardEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             repo.deleteCard(card)
+            loadCards()
         }
     }
 }

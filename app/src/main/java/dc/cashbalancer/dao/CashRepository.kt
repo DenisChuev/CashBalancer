@@ -14,12 +14,12 @@ class CashRepository {
         cardDao.addCard(card.toEntity())
     }
 
-    fun updateCard(card: Card) {
-        cardDao.updateCard(card.toEntity())
+    fun updateCard(card: CardEntity) {
+        cardDao.updateCard(card)
     }
 
-    fun deleteCard(card: Card) {
-        cardDao.deleteCard(card.toEntity())
+    fun deleteCard(card: CardEntity) {
+        cardDao.deleteCard(card)
     }
 
     fun getAllCards(): List<CardEntity> {

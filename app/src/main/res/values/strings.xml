@@ -13,4 +13,6 @@
     <string name="history_tab">История операций</string>
     <string name="profile_tab">Профиль</string>
     <string name="add_operation">Добавить операцию</string>
+    <string name="card_save">Сохранить</string>
+    <string name="card_delete">Удалить карту</string>
 </resources>
