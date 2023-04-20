@@ -48,10 +48,11 @@ class CardUpdateFragment : BottomSheetDialogFragment() {
             colorPickerDialog.setColors()
                 .setColumns(4)
                 .setDefaultSelectedColor(R.color.default_card_color)
-                .setColorItemShape(ColorItemShape.SQUARE)
+                .setColorItemShape(ColorItemShape.CIRCLE)
                 .setOnSelectColorListener(object : OnSelectColorListener {
                     override fun onColorSelected(color: Int, position: Int) {
-                        binding.card.setCardBackgroundColor(color)
+                        card.color = color
+                        binding.card.setBackgroundColor(color)
                         binding.colorPicker.setBackgroundColor(color)
                     }
 
@@ -63,7 +64,6 @@ class CardUpdateFragment : BottomSheetDialogFragment() {
         }
 
         binding.cardSaveBtn.setOnClickListener {
-            card.color = binding.card.cardBackgroundColor.defaultColor
             card.amount = binding.cardAmountInput.text.toString().substringBefore(" ").toDouble()
             card.name = binding.cardNameInput.text.toString()
             vm.updateCard(card)

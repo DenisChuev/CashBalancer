@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="default_card_color">#4f34eb</color>
     <color name="default_card_color_pressed">#4327DF</color>
+    <color name="operation_color">#7D7D7D</color>
 </resources>
