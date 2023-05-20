@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import dc.cashbalancer.R
 import dc.cashbalancer.dao.OperationEntity
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.temporal.ChronoUnit
 import java.util.*
 
 class HistoryListAdapter() : RecyclerView.Adapter<HistoryListAdapter.HistoryViewHolder>() {
@@ -70,7 +72,17 @@ class HistoryListAdapter() : RecyclerView.Adapter<HistoryListAdapter.HistoryView
 
         @SuppressLint("SetTextI18n")
         fun bind(day: String, operationsSum: Double, operations: List<OperationEntity>) {
-            operationDay.text = day
+            val current = df.format(Date())
+            val yesterday = df.format(Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000))
+
+            if (current.equals(day)) {
+                operationDay.text = "Сегодня"
+            } else if (yesterday.equals(day)) {
+                operationDay.text = "Вчера"
+            } else {
+                operationDay.text = day
+            }
+
             operationSummary.text = "-$operationsSum руб"
             operationsList.apply {
                 layoutManager = LinearLayoutManager(context)

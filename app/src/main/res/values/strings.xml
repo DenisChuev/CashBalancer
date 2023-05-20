@@ -15,4 +15,14 @@
     <string name="add_operation">Добавить операцию</string>
     <string name="card_save">Сохранить</string>
     <string name="card_delete">Удалить карту</string>
+    <string name="history_period_filter">Период</string>
+
+
+    <string-array name="account_array">
+        <item>Счёт</item>
+        <item>Item1</item>
+        <item>Item2</item>
+        <item>Item3</item>
+    </string-array>
+
 </resources>
